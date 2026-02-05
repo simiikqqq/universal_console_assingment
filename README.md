@@ -1,4 +1,4 @@
-# City Simulation Control Console  jssem gay
+# City Simulation Control Console
 **Projektové zadání (SŠ IT)**
 
 ---
