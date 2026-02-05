@@ -23,17 +23,17 @@ Projekt je realizován týmově ve třech.
 
 ## 3. Rozdělení rolí v týmu
 
-### a) Terminál / parser Šimon Novák
+### a) Terminál / parser (Šimon Novák)
 - zpracování vstupu z terminálu  
 - historie příkazů  
 - validace a chybové hlášky  
 
-### b) Simulace města David Krol
+### b) Simulace města (David Krol)
 - logika města (ekonomika, populace, energie)  
 - stav budov a infrastruktury  
 - časový běh simulace (tick / denní cyklus)  
 
-### c) UI / vizualizace Musat Isik
+### c) UI / vizualizace (Musat Isik)
 - vzhled aplikace  
 - barvy, fonty, ikony  
 - grafy, animace, přehled stavu města  
