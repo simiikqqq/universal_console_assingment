@@ -1,1 +1,0 @@
-potomSmazte.md
