@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Segoe UI", Consolas, monospace;
+    background-color: #0d1117;
+    color: #e6edf3;
+}
+
+.app-header {
+    padding: 12px 20px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+}
+
+.app-header h1 {
+    font-size: 1.4rem;
+    color: #58a6ff;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: #8b949e;
+}
+
+.app-container {
+    display: flex;
+    height: calc(100vh - 64px);
+}
+
+.terminal-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background-color: #010409;
+    border-right: 1px solid #30363d;
+}
+
+.terminal-output {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* vstup */
+.terminal-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #161b22;
+    border-top: 1px solid #30363d;
+}
+
+.prompt {
+    margin-right: 8px;
+    color: #58a6ff;
+    font-weight: bold;
+}
+
+#terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e6edf3;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.dashboard {
+    flex: 1;
+    padding: 14px;
+    background-color: #0d1117;
+    overflow-y: auto;
+}
+
+.panel {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.panel h2 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #58a6ff;
+}
+
+.panel ul {
+    list-style: none;
+    font-size: 0.9rem;
+}
+
+.panel li {
+    margin-bottom: 4px;
+}
+
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #010409;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
