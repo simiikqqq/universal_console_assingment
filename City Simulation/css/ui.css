@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
+header {
+    background: #1e293b;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    display: grid;
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.stat {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#notifications {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 300px;
+}
+
+.notification {
+    background: #334155;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+canvas {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 10px;
+}
