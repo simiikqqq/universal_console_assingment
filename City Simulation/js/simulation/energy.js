@@ -1,18 +1,10 @@
-import { cityState } from './city.js';
+function updateEnergy() {
+    const balance = window.cityState.energyProduction - window.cityState.energyConsumption;
+    window.cityState.energy = Math.max(0, Math.min(100, window.cityState.energy + balance * 0.1));
 
-export function updateEnergy() {
-    // Energetická bilance: produkce - spotřeba
-    const balance = cityState.energyProduction - cityState.energyConsumption;
-    
-    // Aktualizace zbývající energie (0-100%)
-    cityState.energy = Math.max(0, Math.min(100, cityState.energy + balance * 0.1));
-    
-    // Pokud energií nedostává, má to negativní vliv
-    if (cityState.energyConsumption > cityState.energyProduction) {
-        // Snížení štěstí
-        cityState.happiness = Math.max(0, cityState.happiness - 1);
+    if (window.cityState.energyConsumption > window.cityState.energyProduction) {
+        window.cityState.happiness = Math.max(0, window.cityState.happiness - 1);
     } else {
-        // Zlepšení štěstí, když je elektřina v přebytku
-        cityState.happiness = Math.min(100, cityState.happiness + 0.5);
+        window.cityState.happiness = Math.min(100, window.cityState.happiness + 0.5);
     }
 }
