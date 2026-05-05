@@ -1,29 +1,39 @@
-import { cityState } from './city.js';
+// js/simulation/buildings.js
+// Staví budovu, propojí s ekonomikou/energií a vyvolá event pro mapu (CityMap)
 
-/**
- * Funkce pro postavení budovy.
- * @param {Object} buildingTemplate - Objekt z buildings.json
- */
-export function buildBuilding(buildingTemplate) {
-    // 1. Kontrola peněz
-    if (cityState.budget < buildingTemplate.cost) {
-        return `Chyba: Nedostatek financí (potřebuješ ${buildingTemplate.cost} Kč).`;
+function buildBuilding(template) {
+    const state = window.cityState;
+
+    if (state.budget < template.cost) {
+        return `Nedostatek peněz: potřeba ${template.cost} Kč`;
     }
 
-    // 2. Provedení transakce
-    cityState.budget -= buildingTemplate.cost;
-    
-    // 3. Aktualizace energetické bilance
-    cityState.energyProduction += buildingTemplate.energyProduction;
-    cityState.energyConsumption += buildingTemplate.energyConsumption;
+    state.budget -= template.cost;
+    state.energyProduction += (template.energyProduction || 0);
+    state.energyConsumption += (template.energyConsumption || 0);
 
-    // 4. Přidání do seznamu postavených budov
-    cityState.buildings.push({
-        id: Date.now(),
-        type: buildingTemplate.id,
-        name: buildingTemplate.name,
-        maintenance: buildingTemplate.maintenance
-    });
+    const newBuilding = {
+        id: Date.now() + Math.floor(Math.random() * 1000),
+        type: template.id,
+        name: template.name,
+        maintenance: template.maintenance || 0,
+        incomeBonus: template.incomeBonus || 0,
+        growthBonus: template.growthBonus || 0,
+        populationCapacity: template.populationCapacity || 0
+    };
 
-    return `Úspěch: ${buildingTemplate.name} byla postavena.`;
+    state.buildings.push(newBuilding);
+
+    // Vizuální notifikace na mapě – umístí budovu na další volnou parcelu
+    if (window.CityMap && typeof window.CityMap.addBuilding === 'function') {
+        window.CityMap.addBuilding(template.id, newBuilding.id);
+    }
+
+    // Okamžitá aktualizace UI
+    if (window.updateDashboard) window.updateDashboard();
+    if (window.updateAllCharts) window.updateAllCharts();
+
+    return `${template.name} postavena úspěšně. (-${template.cost} Kč)`;
 }
+
+window.buildBuilding = buildBuilding;
