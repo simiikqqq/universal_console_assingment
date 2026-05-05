@@ -1,18 +1,49 @@
-import { cityState } from './city.js';
-import { updateEconomy } from './economy.js';
-import { updatePopulation } from './population.js';
-import { updateEnergy } from './energy.js';
-
-export function startSimulation() {
+function startSimulation() {
     setInterval(() => {
-        if (!cityState.isPaused) {
-            // Davidovy výpočty
-            updateEconomy(); 
+        if (!window.cityState.isPaused) {
+            updateEconomy();
             updatePopulation();
             updateEnergy();
-            cityState.day++;
             
-            console.log("Simulace běží, den:", cityState.day);
+            // 🏦 Týdenní splátka půjčky (kontroluje se každý den)
+            if (typeof window.processBankPayment === 'function') {
+                window.processBankPayment();
+            }
+            
+            window.cityState.day++;
+
+            if (window.updateDashboard) window.updateDashboard();
+            if (window.updateAllCharts) window.updateAllCharts();
+            if (window.updateChart) window.updateChart();
+
+            if (window.showNotification) {
+                window.showNotification(`Den ${window.cityState.day} dokoncen`);
+            }
         }
-    }, 3000); // Nový den každé 3 sekundy
+    }, 3000);
 }
+
+function simulateDay() {
+    if (!window.cityState.isPaused) {
+        updateEconomy();
+        updatePopulation();
+        updateEnergy();
+        
+        // 🏦 Týdenní splátka půjčky
+        if (typeof window.processBankPayment === 'function') {
+            window.processBankPayment();
+        }
+        
+        window.cityState.day++;
+
+        if (window.updateDashboard) window.updateDashboard();
+        if (window.updateAllCharts) window.updateAllCharts();
+        if (window.updateChart) window.updateChart();
+        if (window.showNotification) {
+            window.showNotification(`Simulovan den ${window.cityState.day}`);
+        }
+    }
+}
+
+window.startSimulation = startSimulation;
+window.simulateDay = simulateDay;
