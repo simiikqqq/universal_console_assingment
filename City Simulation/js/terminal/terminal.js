@@ -1,63 +1,55 @@
 window.Terminal = {
-
     init() {
         this.output = document.getElementById("terminal-output");
         this.input = document.getElementById("terminal-input");
 
         if (!this.output || !this.input) {
-            console.error("Terminal DOM elements not found!");
+            console.error("Terminal elementy nenalezeny!");
             return;
         }
 
-        this.input.addEventListener("keydown", (e) => {
-
+        this.input.addEventListener("keydown", e => {
             if (e.key === "Enter") {
-                const value = this.input.value.trim();
-                if (!value) return;
+                const val = this.input.value.trim();
+                if (!val) return;
 
-                if (window.History) {
-                    History.add(value);
-                }
+                if (window.History) window.History.add(val);
 
-                this.handleCommand(value);
+                this.handleCommand(val);
                 this.input.value = "";
             }
 
             if (e.key === "ArrowUp" && window.History) {
                 e.preventDefault();
-                this.input.value = History.previous();
+                this.input.value = window.History.previous();
             }
 
             if (e.key === "ArrowDown" && window.History) {
                 e.preventDefault();
-                this.input.value = History.next();
+                this.input.value = window.History.next();
             }
-
         });
     },
 
     handleCommand(input) {
-        this.print(`> ${input}`, "user");
+        this.print(`> ${input}`, "input");
 
         if (!window.Parser) {
-            this.print("Parser not found!", "error");
+            this.print("Parser nenalezen!", "error");
             return;
         }
 
-        const result = Parser.parse(input);
-
-        if (result) {
-            this.print(result, "system");
-        }
+        const result = window.Parser.parse(input);
+        if (result) this.print(result, "system");
 
         this.scrollToBottom();
     },
 
     print(text, type = "system") {
-        const line = document.createElement("div");
-        line.classList.add("terminal-line", type);
-        line.innerHTML = text.replace(/\n/g, "<br>");
-        this.output.appendChild(line);
+        const div = document.createElement("div");
+        div.className = `terminal-line ${type}`;
+        div.innerHTML = text.replace(/\n/g, "<br>");
+        this.output.appendChild(div);
     },
 
     clear() {
@@ -67,5 +59,4 @@ window.Terminal = {
     scrollToBottom() {
         this.output.scrollTop = this.output.scrollHeight;
     }
-
 };
