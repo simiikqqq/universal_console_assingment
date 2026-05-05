@@ -2,115 +2,125 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Simulation Control Console</title>
-
-    <!-- Základní styly -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/terminal.css">
     <link rel="stylesheet" href="/css/ui.css">
-
-    <!-- Font / ikony (volitelné) -->
-    <link rel="icon" href="/assets/icons/">
+    <link rel="stylesheet" href="/css/cityMap.css">
 </head>
-
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header class="app-header">
         <h1>🏙 City Simulation Control Console</h1>
         <span class="subtitle">Central City Management Terminal</span>
     </header>
 
-    <!-- ===== HLAVNÍ LAYOUT ===== -->
     <main class="app-container">
 
-        <!-- ===== TERMINÁL ===== -->
-        <section class="terminal-section">
-            <div id="terminal-output" class="terminal-output">
-                <!-- Výpis příkazů a odpovědí -->
-                <div class="terminal-line system">
-                    Welcome to City Manager v1.0<br>
-                    Type <strong>help</strong> to see available commands.
+        <!-- LEVÝ SLOUPEC: Mapa (nahoře) + Terminál (dole) -->
+        <section class="left-column">
+
+            <!-- Vizualizace města -->
+            <div class="city-map-wrapper">
+                <div class="city-map-header">
+                    <h2>Mapa města</h2>
+                    <div class="city-map-controls">
+                        <button id="map-zoom-in"  title="Přiblížit">+</button>
+                        <button id="map-zoom-out" title="Oddálit">−</button>
+                        <button id="map-reset"    title="Centrovat">⌖</button>
+                        <span class="map-legend">🟢 Park · 🏠 Dům · 🏭 Elektrárna · 🏪 Obchod · 🏫 Škola</span>
+                    </div>
+                </div>
+                <div id="city-map" class="city-map"></div>
+                <div class="city-map-footer">
+                    <span id="map-people-info">Lidé na mapě: <b id="map-people-count">0</b></span>
+                    <span id="map-buildings-info">Budov: <b id="map-buildings-count">0</b></span>
                 </div>
             </div>
 
-            <div class="terminal-input">
-                <span class="prompt">&gt;</span>
-                <input 
-                    type="text" 
-                    id="terminal-input" 
-                    autocomplete="off" 
-                    autofocus
-                    placeholder="Enter command..."
-                >
+            <!-- Terminál -->
+            <div class="terminal-section">
+                <div id="terminal-output" class="terminal-output">
+                    <div class="terminal-line system">
+                        Vítejte v City Manager v1.0<br>
+                        Napište <strong>help</strong> pro seznam příkazů.
+                    </div>
+                </div>
+
+                <div class="terminal-input">
+                    <span class="prompt">&gt;</span>
+                    <input type="text" id="terminal-input" autocomplete="off" autofocus placeholder="Zadejte příkaz...">
+                </div>
             </div>
         </section>
 
-        <!-- ===== DASHBOARD ===== -->
+        <!-- PRAVÝ SLOUPEC: Dashboard -->
         <aside class="dashboard">
 
-            <!-- Stav města -->
-            <div class="panel">
-                <h2>City Status</h2>
-                <ul>
-                    <li>👥 Population: <span id="ui-population">0</span></li>
-                    <li>💰 Budget: <span id="ui-money">0</span></li>
-                    <li>⚡ Energy: <span id="ui-energy">0</span></li>
-                </ul>
+            <!-- Horní řada: Stav města + Budovy vedle sebe -->
+            <div class="top-row">
+                <div class="panel status-panel">
+                    <h2>Stav města</h2>
+                    <ul>
+                        <li>👥 Obyvatelé: <span id="ui-population">0</span></li>
+                        <li>💰 Rozpočet: <span id="ui-money">0</span> Kč</li>
+                        <li>⚡ Energie: <span id="ui-energy">0</span>%</li>
+                        <li>📅 Den: <span id="ui-day">0</span></li>
+                    </ul>
+                </div>
+
+                <div class="panel buildings-panel">
+                    <h2>Budovy</h2>
+                    <div id="ui-buildings" class="buildings-list"></div>
+                </div>
             </div>
 
-            <!-- Budovy -->
-            <div class="panel">
-                <h2>Buildings</h2>
-                <ul id="ui-buildings">
-                    <!-- generováno JS -->
-                </ul>
-            </div>
-
-            <!-- Grafy -->
-            <div class="panel">
-                <h2>Statistics</h2>
-                <canvas id="population-chart" width="250" height="150"></canvas>
+            <!-- Tři grafy vedle sebe -->
+            <div class="charts-row">
+                <div class="panel chart-panel">
+                    <h2>Populace 👥</h2>
+                    <canvas id="population-chart"></canvas>
+                </div>
+                <div class="panel chart-panel">
+                    <h2>Rozpočet 💰</h2>
+                    <canvas id="budget-chart"></canvas>
+                </div>
+                <div class="panel chart-panel">
+                    <h2>Energie ⚡</h2>
+                    <canvas id="energy-chart"></canvas>
+                </div>
             </div>
 
         </aside>
-
     </main>
 
-    <!-- ===== NOTIFIKACE ===== -->
     <div id="notification-container"></div>
 
-    <!-- ===== AUDIO ===== -->
-    <audio id="alert-sound" src="/assets/sounds/" preload="auto"></audio>
-
-    <!-- ===== JAVASCRIPT ===== -->
-
-    <!-- Utils -->
+    <!-- Skripty – pořadí důležité -->
     <script src="/js/utils/constants.js"></script>
     <script src="/js/utils/helpers.js"></script>
     <script src="/js/utils/logger.js"></script>
 
-    <!-- Simulace -->
     <script src="/js/simulation/city.js"></script>
     <script src="/js/simulation/economy.js"></script>
     <script src="/js/simulation/population.js"></script>
     <script src="/js/simulation/energy.js"></script>
     <script src="/js/simulation/buildings.js"></script>
+    <script src="/js/simulation/bank.js"></script>
     <script src="/js/simulation/simulationLoop.js"></script>
 
-    <!-- Terminál -->
     <script src="/js/terminal/history.js"></script>
     <script src="/js/terminal/commands.js"></script>
     <script src="/js/terminal/parser.js"></script>
     <script src="/js/terminal/terminal.js"></script>
 
-    <!-- UI -->
     <script src="/js/ui/dashboard.js"></script>
     <script src="/js/ui/charts.js"></script>
     <script src="/js/ui/animations.js"></script>
     <script src="/js/ui/notifications.js"></script>
+    <script src="/js/ui/cityMap.js"></script>
 
-    <!-- Main -->
     <script src="/js/script.js"></script>
 
 </body>
