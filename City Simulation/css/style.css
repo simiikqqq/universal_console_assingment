@@ -6,61 +6,89 @@
 
 html, body {
     height: 100%;
-    font-family: "Segoe UI", Consolas, monospace;
+    font-family: "Segoe UI", Consolas, "Courier New", monospace;
     background-color: #0d1117;
     color: #e6edf3;
+    overflow: hidden;
 }
 
 .app-header {
-    padding: 12px 20px;
+    padding: 10px 20px;
     background: #161b22;
     border-bottom: 1px solid #30363d;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .app-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: #58a6ff;
+    margin: 0;
 }
 
 .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #8b949e;
 }
 
 .app-container {
     display: flex;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 56px);
+    gap: 0;
 }
 
-.terminal-section {
-    flex: 2;
+/* === LEVÝ SLOUPEC: Mapa + Terminál === */
+.left-column {
+    flex: 1.8;
     display: flex;
     flex-direction: column;
     background-color: #010409;
     border-right: 1px solid #30363d;
+    min-width: 0;
+}
+
+/* Mapa města bere 60% výšky levého sloupce */
+.city-map-wrapper {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #30363d;
+    background: #0d1117;
+    min-height: 0;
+}
+
+/* Terminál zbylých 40% */
+.terminal-section {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background-color: #010409;
 }
 
 .terminal-output {
     flex: 1;
-    padding: 12px;
+    padding: 12px 16px;
     overflow-y: auto;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
 }
 
-/* vstup */
 .terminal-input {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 16px;
     background-color: #161b22;
     border-top: 1px solid #30363d;
 }
 
 .prompt {
-    margin-right: 8px;
+    margin-right: 10px;
     color: #58a6ff;
     font-weight: bold;
+    user-select: none;
 }
 
 #terminal-input {
@@ -73,11 +101,16 @@ html, body {
     font-size: 0.95rem;
 }
 
+/* === PRAVÝ SLOUPEC: Dashboard === */
 .dashboard {
     flex: 1;
     padding: 14px;
     background-color: #0d1117;
     overflow-y: auto;
+    min-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .panel {
@@ -85,12 +118,11 @@ html, body {
     border: 1px solid #30363d;
     border-radius: 6px;
     padding: 12px;
-    margin-bottom: 14px;
 }
 
 .panel h2 {
     font-size: 1rem;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #58a6ff;
 }
 
@@ -101,17 +133,23 @@ html, body {
 
 .panel li {
     margin-bottom: 4px;
+    color: #c9d1d9;
 }
 
 #notification-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 24px;
+    right: 24px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 320px;
 }
 
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
