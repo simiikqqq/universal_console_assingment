@@ -1,11 +1,22 @@
-import { cityState } from './city.js';
+// js/simulation/economy.js
+// Daně z obyvatel + bonus příjem z obchodů – minus údržba všech budov
 
-export function updateEconomy() {
-    // Příjem: 10 peněz za každého obyvatele
-    const taxes = Math.floor(cityState.population * 0.5);
-    
-    // Výdaje: Každá budova v poli cityState.buildings může mít maintenance
-    const maintenance = cityState.buildings.length * 20;
+function updateEconomy() {
+    const state = window.cityState;
 
-    cityState.budget += (taxes - maintenance);
+    const taxes = Math.floor((state.population || 0) * 0.5);
+
+    // Součet maintenance a incomeBonus ze všech budov (shop = +peníze)
+    let maintenance = 0;
+    let buildingIncome = 0;
+    (state.buildings || []).forEach(b => {
+        maintenance    += (b.maintenance  || 0);
+        buildingIncome += (b.incomeBonus || 0);
+    });
+
+    state.income   = taxes + buildingIncome;
+    state.expenses = maintenance;
+    state.budget   += (state.income - state.expenses);
 }
+
+window.updateEconomy = updateEconomy;
