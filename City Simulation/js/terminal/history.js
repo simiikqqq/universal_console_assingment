@@ -1,17 +1,14 @@
-const History = {
-
+window.History = {
     commands: [],
     index: -1,
 
-    add(command) {
-        this.commands.push(command);
+    add(cmd) {
+        this.commands.push(cmd);
         this.index = this.commands.length;
     },
 
     previous() {
-        if (this.index > 0) {
-            this.index--;
-        }
+        if (this.index > 0) this.index--;
         return this.commands[this.index] || "";
     },
 
@@ -19,10 +16,8 @@ const History = {
         if (this.index < this.commands.length - 1) {
             this.index++;
             return this.commands[this.index];
-        } else {
-            this.index = this.commands.length;
-            return "";
         }
+        this.index = this.commands.length;
+        return "";
     }
-
 };
