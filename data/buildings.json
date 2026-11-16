@@ -1,0 +1,63 @@
+[
+  {
+    "id": "powerplant",
+    "name": "Uhelná elektrárna",
+    "cost": 2000,
+    "maintenance": 50,
+    "energyProduction": 100,
+    "energyConsumption": 0,
+    "incomeBonus": 0,
+    "growthBonus": 0
+  },
+  {
+    "id": "house",
+    "name": "Obytný dům",
+    "cost": 1000,
+    "maintenance": 20,
+    "energyProduction": 0,
+    "energyConsumption": 30,
+    "incomeBonus": 0,
+    "growthBonus": 0,
+    "populationCapacity": 50
+  },
+  {
+    "id": "shop",
+    "name": "Obchod",
+    "cost": 1500,
+    "maintenance": 30,
+    "energyProduction": 0,
+    "energyConsumption": 20,
+    "incomeBonus": 120,
+    "growthBonus": 0
+  },
+  {
+    "id": "school",
+    "name": "Škola",
+    "cost": 2500,
+    "maintenance": 60,
+    "energyProduction": 0,
+    "energyConsumption": 25,
+    "incomeBonus": 0,
+    "growthBonus": 3
+  },
+  {
+    "id": "park",
+    "name": "Park",
+    "cost": 600,
+    "maintenance": 10,
+    "energyProduction": 0,
+    "energyConsumption": 0,
+    "incomeBonus": 0,
+    "growthBonus": 1
+  },
+  {
+    "id": "bank",
+    "name": "Banka",
+    "cost": 3000,
+    "maintenance": 40,
+    "energyProduction": 0,
+    "energyConsumption": 25,
+    "incomeBonus": 80,
+    "growthBonus": 0
+  }
+]

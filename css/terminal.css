@@ -1,0 +1,9 @@
+.terminal-line {
+    margin-bottom: 2px;
+}
+
+.terminal-line.system   { color: #8b949e; }
+.terminal-line.input    { color: #58a6ff; font-weight: 500; }
+.terminal-line.success  { color: #3fb950; }
+.terminal-line.error    { color: #f85149; font-weight: 500; }
+.terminal-line.warning  { color: #d29922; }
